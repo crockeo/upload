@@ -45,7 +45,7 @@ gulp.task('deploy-scss', function () {
 });
 
 // Deploying the templates.
-gulp.task('deploy-templates', ['deploy-jade', 'deploy-jsx', 'deploy-scss'] function () { });
+gulp.task('deploy-templates', ['deploy-jade', 'deploy-jsx', 'deploy-scss'], function () { });
 
 // Deploying the front-end dependencies.
 gulp.task('deploy-dependencies', function () {
