@@ -16,26 +16,16 @@ var Form = React.createClass({
         if (fi.files[0]) {
             this.props.setMessage('Trying to upload...');
 
-            var boundary = 'blob';
-
-            // Constructing the data.
-            var data = '';
-
-            data += '--' + boundary + '\r\n';
-            data += 'content-disposition: form-data' +
-                    'name="' + fi.name + '"; ' +
-                    'filename="' + fi.files[0].name + '"\r\n';
-            data += 'Content-Type: ' + fi.files[0].type + '\r\n';
-            data += '\r\n';
-            data += fi.binary + '\r\n';
+            var fd = new FormData();
+            fd.append('file', fi.files[0]);
 
             // Performing the AJAX request!
             $.ajax({
                 type: 'POST',
                 url: '/api/sendFile',
-                data: data,
-                contentType: 'multipart/form-data; boundary=' + boundary,
-                headers: 'Content-Length: ' + data.length,
+                data: fd,
+                processData: false,
+                contentType: false,
 
                 success: function (data, status) {
                     console.log(':)');

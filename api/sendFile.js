@@ -13,7 +13,7 @@
 
 // Posting to the url.
 function post(req, res) {
-    res.status(200).send('Okay!');
+    res.status(200).send('We good.');
 }
 
 /////////////

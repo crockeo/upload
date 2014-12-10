@@ -8,6 +8,7 @@
 // Imports //
 var express    = require('express'),
     bodyParser = require('body-parser'),
+    multer     = require('multer'),
 
     sendFile = require('./api/sendFile.js');
 
@@ -19,6 +20,9 @@ var app = express();
 
 // Parsing POST requests as JSON.
 app.use(bodyParser.json());
+
+// Parsing multipart/form-data requests.
+app.use(multer({ dest: './uploads/' }));
 
 // Register API routes here:
 app.post('/sendFile', sendFile.post);
