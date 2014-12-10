@@ -9,10 +9,19 @@ var Message = React.createClass({
 
 // The portion of the React app that is the input form.
 var Form = React.createClass({
+    onSubmit: function (e) {
+        e.preventDefault();
+    },
+
     render: function () {
         return (
-            <form method="post" action="/" enctype="multipart/form-data">
-            
+            <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                    <label>Upload something:</label>
+                    <input ref="fileInput" type="file" required />
+                </div>
+
+                <button className="btn btn-default" type="submit">Upload</button>
             </form>
         );
     }
