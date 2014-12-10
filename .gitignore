@@ -1,0 +1,5 @@
+# Ignoring some generated files.
+node_modules/
+bower_components/
+static/
+pages/

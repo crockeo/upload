@@ -1,0 +1,23 @@
+{
+    "name": "upload",
+    "version": "0.0.0",
+    "homepage": "https://github.com/crockeo/generator-crockeo",
+    "description": "A tool to upload files to this computer.",
+    "authors": [
+        "Cerek Hillen"
+    ],
+    "license": "MIT",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "react": "~0.12.1",
+        "bootstrap": "~3.3.1",
+        "zepto": "~1.1.4"
+    }
+}
