@@ -28,16 +28,6 @@ app.use('/static', express.static(__dirname + '/static'));
 // Serving HTML files.
 app.use(express.static(__dirname + '/pages'));
 
-// Serving the index.html page.
-app.use('/', function (req, res, next) {
-    fs.exists('pages/404.html', function (exists) {
-        if (exists)
-            res.status(200).sendFile('pages/index.html');
-        else
-            next();
-    });
-});
-
 // Serving API documentation on the root API route if documentation exists.
 app.use('/api', function (req, res, next) {
     fs.exists('pages/apidoc.html', function (exists) {
@@ -53,9 +43,9 @@ app.use('/api', api);
 
 // Serving a 404 page (plaintext if a 404.html does not exist).
 app.use(function (req, res, next) {
-    fs.exists('pages/404.html', function (exists) {
+    fs.exists(__dirname + '/pages/404.html', function (exists) {
         if (exists)
-            res.status(404).sendFile('pages/404.html');
+            res.status(404).sendFile(__dirname + '/pages/404.html');
         else
             res.status(404).send('Error 404: Page not found.');
     });
