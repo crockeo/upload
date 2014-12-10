@@ -22,7 +22,12 @@ var app = express();
 app.use(bodyParser.json());
 
 // Parsing multipart/form-data requests.
-app.use(multer({ dest: './uploads/' }));
+app.use(multer({
+    dest: './uploads/',
+    rename: function (fieldname, filename) {
+        return filename;
+    }
+}));
 
 // Register API routes here:
 app.post('/sendFile', sendFile.post);
