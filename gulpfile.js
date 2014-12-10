@@ -20,26 +20,32 @@ var gulp    = require('gulp'),
 ////
 // Deploying
 
-// Deploying the templates.
-gulp.task('deploy-templates', function () {
-    // Watching the Jade files.
+// Deploying Jade.
+gulp.task('deploy-jade', function () {
     gulp.src('templates/jade/**')
         .pipe(plumber())
         .pipe(jade({}))
-        .pipe(gulp.dest('pages/'));
+        .pipe(gulp.dest('static/html/'));
+});
 
-    // Watching the JSX files.
+// Deploying JSX.
+gulp.task('deploy-jsx', function () {
     gulp.src('templates/jsx/**')
         .pipe(plumber())
         .pipe(react({}))
         .pipe(gulp.dest('static/js/'));
+});
 
-    // Watching the SCSS files.
+// Deploying SCSS.
+gulp.task('deploy-scss', function () {
     gulp.src('templates/scss/**')
         .pipe(plumber())
         .pipe(sass())
         .pipe(gulp.dest('static/css'));
 });
+
+// Deploying the templates.
+gulp.task('deploy-templates', ['deploy-jade', 'deploy-jsx', 'deploy-scss'] function () { });
 
 // Deploying the front-end dependencies.
 gulp.task('deploy-dependencies', function () {
