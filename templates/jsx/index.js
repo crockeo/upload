@@ -11,6 +11,41 @@ var Message = React.createClass({
 var Form = React.createClass({
     onSubmit: function (e) {
         e.preventDefault();
+
+        var fi = this.refs.fileInput.getDOMNode();
+        if (fi.files[0]) {
+            this.props.setMessage('Trying to upload...');
+
+            var boundary = 'blob';
+
+            // Constructing the data.
+            var data = '';
+
+            data += '--' + boundary + '\r\n';
+            data += 'content-disposition: form-data' +
+                    'name="' + fi.name + '"; ' +
+                    'filename="' + fi.files[0].name + '"\r\n';
+            data += 'Content-Type: ' + fi.files[0].type + '\r\n';
+            data += '\r\n';
+            data += fi.binary + '\r\n';
+
+            // Opening the request.
+            var xhr = new XMLHttpRequest();
+
+            // Adding event listeners for success and failure.
+            xhr.addEventListener('load', function (e) {
+                console.log(e);
+                // this.props.setMessage('File sent!');
+            }.bind(this));
+
+            // Finally sending the data.
+            xhr.open('POST', '/api/sendFile', true);
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
+            xhr.setRequestHeader('Content-Type', data.length);
+            xhr.send(data);
+        } else {
+            this.props.setMessage('You forgot to choose a file!');
+        }
     },
 
     render: function () {
@@ -18,7 +53,7 @@ var Form = React.createClass({
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label>Upload something:</label>
-                    <input ref="fileInput" type="file" required />
+                    <input ref="fileInput" type="file" />
                 </div>
 
                 <button className="btn btn-default" type="submit">Upload</button>
