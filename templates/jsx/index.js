@@ -29,20 +29,22 @@ var Form = React.createClass({
             data += '\r\n';
             data += fi.binary + '\r\n';
 
-            // Opening the request.
-            var xhr = new XMLHttpRequest();
+            // Performing the AJAX request!
+            $.ajax({
+                type: 'POST',
+                url: '/api/sendFile',
+                data: data,
+                contentType: 'multipart/form-data; boundary=' + boundary,
+                headers: 'Content-Length: ' + data.length,
 
-            // Adding event listeners for success and failure.
-            xhr.addEventListener('load', function (e) {
-                console.log(e);
-                // this.props.setMessage('File sent!');
-            }.bind(this));
+                success: function (data, status) {
+                    console.log(':)');
+                },
 
-            // Finally sending the data.
-            xhr.open('POST', '/api/sendFile', true);
-            xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
-            xhr.setRequestHeader('Content-Type', data.length);
-            xhr.send(data);
+                error: function () {
+                    console.log(':(');
+                }
+            });
         } else {
             this.props.setMessage('You forgot to choose a file!');
         }

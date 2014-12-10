@@ -7,7 +7,9 @@
 /////////////
 // Imports //
 var express    = require('express'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+
+    sendFile = require('./api/sendFile.js');
 
 //////////
 // Code //
@@ -19,6 +21,7 @@ var app = express();
 app.use(bodyParser.json());
 
 // Register API routes here:
+app.post('/sendFile', sendFile.post);
 
 /////////////
 // Exports //
