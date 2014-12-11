@@ -13,7 +13,9 @@
 
 // Posting to the url.
 function post(req, res) {
-    res.status(200).send('We good.');
+    res.status(200).json({
+        success: true
+    });
 }
 
 /////////////

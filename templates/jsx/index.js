@@ -28,12 +28,15 @@ var Form = React.createClass({
                 contentType: false,
 
                 success: function (data, status) {
-                    console.log(':)');
-                },
+                    if (data.success)
+                        this.props.setMessage('Upload complete!');
+                    else
+                        this.props.setMessage('Upload failed! :(');
+                }.bind(this),
 
                 error: function () {
-                    console.log(':(');
-                }
+                    this.props.setMessage('Upload failed! :(');
+                }.bind(this)
             });
         } else {
             this.props.setMessage('You forgot to choose a file!');
